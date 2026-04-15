@@ -13,15 +13,17 @@ Prefer reading and scope selection first. Do not start by writing memory.
 
 ## Read Order
 
-Load only what the task needs, in this order:
+After opening this file, continue in this order:
 
 1. `operations.md`
 2. `memory.md`
-3. `corrections.md` when recent fixes, failures, or follow-up corrections may matter
+3. `corrections.md`
 4. `learning.md` when deciding whether something should be written or promoted
 5. Check whether the project root contains `.ai-memory/`
-6. If present, read `.ai-memory/memory.md`
-7. If present, read `.ai-memory/corrections.md`
+6. If `.ai-memory/` is present, verify that both `.ai-memory/memory.md` and `.ai-memory/corrections.md` exist
+7. If both files exist, read `.ai-memory/memory.md`
+8. If both files exist, read `.ai-memory/corrections.md`
+9. If the directory exists but either file is missing, treat project memory as partially initialized and ask before repairing it
 
 Keep this precedence:
 
@@ -53,10 +55,11 @@ Use this skill first for:
 1. Confirm the task is in a proactive trigger case.
 2. Read global memory and decide whether project-specific context is needed.
 3. Check whether `.ai-memory/` exists in the project root.
-4. If it exists, read project memory and apply the precedence order.
-5. If it does not exist but the task clearly needs project memory, ask for confirmation before creating it.
-6. Distill the active constraints into task guidance; do not dump raw memory files back to the user.
-7. When the task ends, hand off failures, corrections, reusable wins, memory bloat, and used-skill review to `memory-evolution`.
+4. If it exists and both project files exist, read project memory and apply the precedence order.
+5. If the directory exists but either project file is missing, explain the partial state and ask before repairing it.
+6. If `.ai-memory/` does not exist but the task clearly needs project memory, ask for confirmation before creating it.
+7. Distill the active constraints into task guidance; do not dump raw memory files back to the user.
+8. When the task ends, hand off failures, corrections, reusable wins, memory bloat, and used-skill review to `memory-evolution`.
 
 ## Scope Rules
 
@@ -88,10 +91,18 @@ If `.ai-memory/` is missing and project memory is clearly needed:
 
 1. Show the command `New-Item -ItemType Directory .ai-memory`
 2. Wait for user confirmation
-3. Create `.ai-memory/memory.md`
-4. Create `.ai-memory/corrections.md`
-5. If `.gitignore` exists in the project root, add `/.ai-memory/` to it
-6. Create project `memory.md` with the same section layout as the global `memory.md`, but keep the content project-scoped
+3. Create `.ai-memory/`
+4. Create `.ai-memory/memory.md`
+5. Create `.ai-memory/corrections.md`
+6. If `.gitignore` exists in the project root, add `/.ai-memory/` only when it is not already present
+7. Create project `memory.md` with the same section layout as the global `memory.md`, but keep the content project-scoped
+
+If `.ai-memory/` exists but either project file is missing:
+
+1. Explain which file is missing
+2. Ask for confirmation before creating the missing file
+3. Repair only the missing file or files
+4. If `.gitignore` exists in the project root, add `/.ai-memory/` only when it is not already present
 
 Do not create the directory or files without confirmation.
 
