@@ -7,10 +7,12 @@ Read in this order:
 1. `SKILL.md`
 2. `operations.md`
 3. `memory.md`
-4. `corrections.md` when recent corrections or failures may matter
+4. `corrections.md`
 5. `learning.md` when deciding whether to write or promote
-6. `.ai-memory/memory.md` if the project root contains `.ai-memory/`
-7. `.ai-memory/corrections.md` if the project root contains `.ai-memory/`
+6. verify whether the project root contains `.ai-memory/`
+7. if `.ai-memory/` exists and both project files exist, read `.ai-memory/memory.md`
+8. if `.ai-memory/` exists and both project files exist, read `.ai-memory/corrections.md`
+9. if `.ai-memory/` exists but either project file is missing, treat project memory as partial and ask before repairing it
 
 ## Precedence
 
@@ -54,6 +56,14 @@ If project memory is needed and missing:
 7. initialize project `memory.md` with the same section layout as the global `memory.md`
 
 Never create project memory silently.
+
+If `.ai-memory/` already exists but one or both project files are missing:
+
+1. explain that project memory is only partially initialized
+2. list the missing file or files
+3. ask for confirmation before creating the missing file or files
+4. repair only the missing file or files
+5. if `.gitignore` exists in the project root, append `/.ai-memory/` when it is not already present
 
 ## Write Targets
 
