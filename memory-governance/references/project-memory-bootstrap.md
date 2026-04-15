@@ -25,6 +25,8 @@ Create at minimum:
 - `.ai-memory/memory.md`
 - `.ai-memory/corrections.md`
 
+If `.ai-memory/` already exists but one of these files is missing, do not silently recreate the missing file. First explain the partial state and get explicit confirmation to repair it.
+
 If the project root already contains `.gitignore`, add this line when it is not already present:
 
 ```gitignore
